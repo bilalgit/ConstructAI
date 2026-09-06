@@ -1,128 +1,66 @@
-\# ConstructAI
+# ConstructAI
 
+AI-powered construction project control assistant combining Civil Engineering project controls, Model Context Protocol (MCP), SQLAlchemy, and a local LLM.
 
+## 🚧 Overview
 
-AI-powered construction project control assistant that combines \*\*Civil Engineering project controls, MCP, SQLAlchemy, and a local LLM\*\* to analyze project schedules, delays, risks, resources, and recovery strategies.
+ConstructAI is an AI assistant designed for construction project control.
 
+It allows users to ask project-control questions in natural language and uses MCP tools to retrieve project data, analyze schedules, identify risks, evaluate delays, and recommend recovery actions.
 
+### Key Capabilities
 
-\## 🚧 Overview
+- Analyze project schedule status
+- Identify critical activities
+- Find activities by name
+- Analyze construction delays
+- Determine delay impact on project completion
+- Identify delayed activities
+- Analyze activity dependencies
+- Identify resource bottlenecks
+- Analyze project risks
+- Generate schedule recovery strategies
+- Provide project-control summaries
 
+---
 
-
-ConstructAI is designed as an AI assistant for construction project control.
-
-
-
-Instead of manually checking multiple project-control reports, the user can ask questions in natural language and the system can:
-
-
-
-\- Analyze project schedule status
-
-\- Identify critical activities
-
-\- Find activities by name
-
-\- Analyze construction delays
-
-\- Determine delay impact on project completion
-
-\- Identify delayed activities
-
-\- Analyze activity dependencies
-
-\- Identify resource bottlenecks
-
-\- Analyze project risks
-
-\- Generate schedule recovery strategies
-
-\- Provide an overall project-control summary
-
-
-
-The AI interacts with the project-control functions through \*\*Model Context Protocol (MCP)\*\* tools.
-
-
-
-\## 🏗️ Architecture
-
-
+## 🏗️ Architecture
 
 ```text
+User
+  │
+  ▼
+Natural Language Query
+  │
+  ▼
+Qwen3 8B
+(Local via Ollama)
+  │
+  ▼
+MCP Tool Calling
+  │
+  ▼
+ConstructAI MCP Server
+  │
+  ├── Schedule & CPM
+  ├── Delay Analysis
+  ├── Risk Analysis
+  ├── Resource Analysis
+  └── Schedule Recovery
+  │
+  ▼
+SQLAlchemy
+  │
+  ▼
+Project Database
+  │
+  ▼
+Engineering Analysis
+  │
+  ▼
+AI Recommendation
 
-&#x20;                   User
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;             Natural Language
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;            ┌───────────────┐
-
-&#x20;            │   Qwen3 8B    │
-
-&#x20;            │ Local via     │
-
-&#x20;            │    Ollama     │
-
-&#x20;            └───────┬───────┘
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;             MCP Tool Calling
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;            ┌───────────────┐
-
-&#x20;            │ ConstructAI   │
-
-&#x20;            │  MCP Server   │
-
-&#x20;            └───────┬───────┘
-
-&#x20;                    │
-
-&#x20;         ┌──────────┼──────────┐
-
-&#x20;         ▼          ▼          ▼
-
-&#x20;     Scheduling   Delays     Risks
-
-&#x20;     \& CPM        \& Impact   \& Resources
-
-&#x20;         │          │          │
-
-&#x20;         └──────────┼──────────┘
-
-&#x20;                    ▼
-
-&#x20;               SQLAlchemy
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;             Project Database
-
-&#x20;                    │
-
-&#x20;                    ▼
-
-&#x20;            Engineering Result
-
-🤖 AI Stack
+🤖 Technology Stack
 Python
 MCP 2.1.1
 Qwen3 8B
@@ -131,7 +69,7 @@ SQLAlchemy
 SQLite
 Natural-language tool calling
 
-The LLM runs locally using Ollama, so the project does not require a paid AI API.
+The LLM runs locally through Ollama, so the current system does not require a paid AI API.
 
 🔧 MCP Tools
 
@@ -147,8 +85,8 @@ ConstructAI currently provides 11 MCP tools:
 7	schedule_recovery	Generate schedule recovery options
 8	resource_bottleneck	Identify resource bottlenecks
 9	project_risk_analysis	Analyze project risks
-10	project_control_summary	Generate overall project-control information
-11	find_activity_tool	Find activities using natural-language activity names
+10	project_control_summary	Provide an overall project-control summary
+11	find_activity_tool	Find activities by name
 📊 Project Control Capabilities
 Schedule Management
 
@@ -160,7 +98,7 @@ Early and late dates
 Total float
 Critical activities
 Activity dependencies
-Project completion date
+Project completion dates
 Delay Analysis
 
 The system can determine:
@@ -171,11 +109,11 @@ Original project finish
 New project finish
 Project completion impact
 Affected downstream activities
-Priority of the delay
+Delay priority
 Recommended corrective action
 Schedule Recovery
 
-ConstructAI can recommend recovery strategies such as:
+ConstructAI can recommend strategies such as:
 
 Expediting material procurement
 Increasing manpower
@@ -188,33 +126,34 @@ User Question
 
 Electrical Rough-in is delayed by 3 days because of a material shortage. What is the impact on Project 3 and how can we recover the schedule?
 
-AI Tool Workflow
+Tool Execution
+
 User Question
-      │
-      ▼
+     │
+     ▼
 find_activity_tool
-      │
-      ▼
+     │
+     ▼
 Find Electrical Rough-in
-      │
-      ▼
+     │
+     ▼
 Activity ID = 33
-      │
-      ▼
+     │
+     ▼
 analyze_delay
-      │
-      ▼
-Calculate Project Impact
-      │
-      ▼
+     │
+     ▼
+Calculate Delay Impact
+     │
+     ▼
 schedule_recovery
-      │
-      ▼
+     │
+     ▼
 Generate Recovery Strategy
-      │
-      ▼
+     │
+     ▼
 Engineering Recommendation
-Example Result
+
 Original Project Finish : 2026-11-06
 New Project Finish      : 2026-11-09
 Project Impact          : 3 days
@@ -226,9 +165,10 @@ Recovery Actions:
 3. Increase working hours
 4. Prioritize critical-path activity
 5. Coordinate successor activities
+
 🏢 Demo Project
 
-The project currently includes a sample construction schedule:
+The project includes a sample construction schedule:
 
 ConstructAI Building Control Demo
 
@@ -257,9 +197,9 @@ Testing & Commissioning
 Final Inspection & Handover
 🧪 Testing
 
-The project includes individual test files for major modules and project-control functions.
+The project contains test files for major project-control modules and MCP functionality.
 
-Examples include:
+Examples:
 
 test_cpm.py
 test_delay.py
@@ -325,23 +265,23 @@ Install Ollama and download the Qwen3 model:
 ollama pull qwen3:8b
 5. Run ConstructAI
 
-Start the MCP server / AI client according to the project configuration.
+Start the MCP server and AI client according to the project configuration.
 
 💰 Cost
 
-ConstructAI uses a local LLM through Ollama.
+ConstructAI currently uses a local LLM through Ollama.
 
-AI Model       : Qwen3 8B
-Inference      : Local
-API Cost       : ₹0
+AI Model  : Qwen3 8B
+Inference : Local
+API Cost  : ₹0
 
-No OpenAI API subscription or paid inference API is required for the current setup.
+No paid AI inference API is required for the current setup.
 
 🎯 Project Objective
 
 The objective of ConstructAI is to explore how Artificial Intelligence and Model Context Protocol can be applied to construction project management and project controls.
 
-The project combines concepts from:
+The project combines:
 
 Civil Engineering
 Construction Planning
@@ -364,9 +304,9 @@ Earned Value Management
 Resource leveling
 Progress forecasting
 Automated daily progress reports
-AI-generated weekly/monthly reports
+AI-generated weekly and monthly reports
 BIM integration
-Primavera P6 data integration
+Primavera P6 integration
 Power BI dashboards
 Construction document intelligence
 Multi-project portfolio monitoring
