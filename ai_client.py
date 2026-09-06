@@ -115,7 +115,24 @@ IMPORTANT RULES:
 
    - When explaining why an activity is high risk, use only the "Reasons", "Risk Score", "Critical", and "Total Float" fields returned by project_risk_analysis unless another MCP tool is explicitly called for additional information.
 
-"""
+16. PROJECT IMPACT OUTPUT FORMAT:
+
+   - When the MCP result contains "Project Impact", NEVER call it a "Project Impact Score".
+   - "Project Impact" represents the number of days the project completion date is affected.
+   - Always display it as:
+     Project Impact: X days
+   - If the MCP result contains "Priority", display it separately as:
+     Priority: <value>
+   - For example, if the tool returns:
+     "Project Impact": 3,
+     "Priority": "CRITICAL"
+     the answer MUST say:
+     Project Impact: 3 days
+     Priority: CRITICAL
+   - Never write "Project Impact Score".
+   - Never describe the number 3 as "High priority".
+   - Do not create any scoring system that is not explicitly provided by an MCP tool.
+   """
 
 def convert_mcp_tool_to_ollama(tool):
     """
