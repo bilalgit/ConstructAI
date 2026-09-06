@@ -26,6 +26,8 @@ It allows users to ask project-control questions in natural language and uses MC
 
 ## 🏗️ Architecture
 
+![ConstructAI Architecture](architecture.png)
+
 ```
 User
   │
