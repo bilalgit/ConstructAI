@@ -63,6 +63,21 @@ AI Recommendation
 ```
 
 ---
+---
+
+## 🎬 Demo
+
+### AI + MCP Tool Execution
+
+ConstructAI accepts a natural-language construction project-control question and automatically selects the required MCP tools.
+
+![MCP Tool Execution](screenshots/mcp-tool-execution.png)
+
+### Delay Impact & Schedule Recovery
+
+For a delayed activity, ConstructAI identifies the activity, calculates the impact on project completion, identifies affected activities, and recommends recovery actions.
+
+![Delay Analysis and Recovery](screenshots/delay-analysis-recovery.png)
 
 ## 🤖 Technology Stack
 
